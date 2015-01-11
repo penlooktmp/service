@@ -1,3 +1,6 @@
-[submodule "daemon"]
-	path = daemon
+[submodule "module/gin"]
+	path = module/gin
+	url = https://github.com/penlook/gin.git
+[submodule "module/daemon"]
+	path = module/daemon
 	url = https://github.com/penlook/daemon.git
