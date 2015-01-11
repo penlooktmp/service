@@ -1,12 +1,12 @@
 [submodule "module/gin"]
 	path = module/gin
-	url = git@github.com:penlook/gin.git
+	url = http://github.com/penlook/gin.git
 [submodule "module/daemon"]
 	path = module/daemon
-	url = git@github.com:penlook/daemon.git
+	url = http://github.com/penlook/daemon.git
 [submodule "module/socket"]
 	path = module/socket
-	url = git@github.com:penlook/socket.git
+	url = http://github.com/penlook/socket.git
 [submodule "module/gcloud"]
 	path = module/gcloud
-	url = git@github.com:penlook/gcloud.git
+	url = http://github.com/penlook/gcloud.git
