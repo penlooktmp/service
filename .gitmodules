@@ -7,3 +7,6 @@
 [submodule "module/socket"]
 	path = module/socket
 	url = git@github.com:penlook/socket.git
+[submodule "module/gcloud"]
+	path = module/gcloud
+	url = git@github.com:penlook/gcloud.git
