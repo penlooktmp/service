@@ -7,8 +7,9 @@ go:
   - tip
 
 install:
+	- cd penlook && go build && cd ../
     - git submodule init
 	- git submodule update
 
 script:
-  - go test -v ./module/penlook
+  - go test -v ./penlook
