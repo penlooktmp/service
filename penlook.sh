@@ -1,0 +1,3 @@
+TMP=`pwd`
+cd module/penlook
+go test ./...
