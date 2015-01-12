@@ -9,7 +9,7 @@ func TestApi(t *testing.T) {
 	assert := assert.New(t)
 
 	var a string = "Hello"
-	var b string = "Hellox"
+	var b string = "Hello"
 
 	assert.Equal(a, b)
 }
