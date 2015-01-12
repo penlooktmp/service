@@ -5,6 +5,7 @@ go:
   - 1.4
 
 install:
+  - cd penlook && go build && cd ..
   - go get -v ./...
   - export PATH=$PATH:$HOME/gopath/bin
 
