@@ -1,8 +1,8 @@
 package main
 
 import (
-	"./penlook"
 	"github.com/penlook/daemon"
+	"github.com/penlook/service/penlook"
 )
 
 func main() {
