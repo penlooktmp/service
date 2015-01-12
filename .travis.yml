@@ -7,7 +7,7 @@ go:
 
 install:
     - git submodule init
-	- git submodule update
+    - git submodule update
 
 script:
-  - go test -v ./penlook
+	- go test -v ./penlook
