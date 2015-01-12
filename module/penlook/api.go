@@ -1,7 +1,7 @@
 package penlook
 
 import (
-	"github.com/gin-gonic/gin"
+	"github.com/penlook/gin"
 )
 
 func Api() {
@@ -20,5 +20,4 @@ func Api() {
 		c.String(500, "and error hapenned :(")
 	})
 	router.Run(":80")
-
 }
