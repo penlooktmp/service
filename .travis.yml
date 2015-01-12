@@ -5,7 +5,7 @@ go:
   - 1.4
 
 install:
-  - go build
+  - go get -v ./...
   - export PATH=$PATH:$HOME/gopath/bin
 
 script:
