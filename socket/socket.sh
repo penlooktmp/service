@@ -1,4 +1,4 @@
-./daemon.sh
+../daemon.sh
 go build socket.go
 service socket stop
 ./socket remove
