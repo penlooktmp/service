@@ -5,6 +5,8 @@ go:
   - 1.4
 
 install:
+  - go get github.com/penlook/gin
+  - go get github.com/penlook/socket
   - cd penlook && go build && cd ..
   - go get -v ./...
   - export PATH=$PATH:$HOME/gopath/bin
