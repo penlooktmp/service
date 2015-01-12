@@ -1,5 +1,4 @@
-# service
-Penlook Service
+# Penlook Service
 
 Build status
 
