@@ -3,9 +3,13 @@
 // license that can be found in the LICENSE file.
 // Author : Loi Nguyen <loint@penlook.com>
 
-package redis
+package cql
 
-type Redis struct {
-	Name     string
-	Server   []string
+import (
+	"github.com/stretchr/testify/assert"
+	"testing"
+)
+
+func TestCql(t *testing.T) {
+	assert.New(t)
 }

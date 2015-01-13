@@ -3,9 +3,9 @@
 // license that can be found in the LICENSE file.
 // Author : Loi Nguyen <loint@penlook.com>
 
-package redis
+package cql
 
-type Redis struct {
+type Cql struct {
 	Name     string
 	Server   []string
 }
