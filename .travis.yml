@@ -10,4 +10,4 @@ install:
   - export PATH=$PATH:$HOME/gopath/bin
 
 script:
-  - go test -v ./penlook
+  - go test -v ./penlook/...
