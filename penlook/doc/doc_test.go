@@ -1,3 +1,8 @@
+// Copyright 2014 Penlook Development Team. All rights reserved.
+// Use of this source code is governed by
+// license that can be found in the LICENSE file.
+// Author : loint@penlook.com
+
 package doc
 
 import (
@@ -25,7 +30,7 @@ func TestDoc(t *testing.T) {
 	penlook := 	doc.Database("penlook")
 	person  := 	penlook.Collection("person")
 
-	// Insert some document
+	// Insert some documents
 	err1 	:=  person.Insert(
 					Person{"Ale", "+55 53 8116 9639"},
 					Person{"Cla", "+55 53 8402 8510"},
