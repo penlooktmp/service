@@ -8,6 +8,8 @@ services:
   - redis-server
   - cassandra
   - mongodb
+  - neo4j
+  - rabbitmq
 
 install:
   - go get -v ./...
