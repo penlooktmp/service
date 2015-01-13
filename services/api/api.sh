@@ -1,4 +1,3 @@
-../daemon.sh
 go build api.go
 service api stop
 ./api remove
