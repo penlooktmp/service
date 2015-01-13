@@ -35,6 +35,7 @@ func TestDoc(t *testing.T) {
 					Person{"Ale", "+55 53 8116 9639"},
 					Person{"Cla", "+55 53 8402 8510"},
 			    )
+
 	assert.Nil(err1)
 
 	// Retrieve result
