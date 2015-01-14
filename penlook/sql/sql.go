@@ -8,6 +8,7 @@ package sql
 import (
 	libsql "database/sql"
 	_ "github.com/penlook/mysql"
+	"strconv"
 	//"fmt"
 )
 
@@ -19,16 +20,28 @@ type Sql struct {
 	User string
 	Password string
 	connection *libsql.DB
-	Run func(cmd string, args ...interface {}) (*libsql.Rows, error)
+	Query func(cmd string, args ...interface {}) (*libsql.Rows, error)
 }
 
 func (sql *Sql) SetConnection(connection *libsql.DB) {
 	sql.connection = connection
-	sql.Run = connection.Query
+	sql.Query = connection.Query
 }
 
 func (sql Sql) Connect() Sql {
-	connection_string := sql.
+	
+	connect_str := sql.User
+
+	if sql.Password != "" {
+		connect_str += ":" + sql.Password
+	}
+
+	connect_str += "@" + sql.Server + ":" + strconv.Itoa(sql.Port)
+
+	if sql.Database != "" {
+		connect_str += "/" + sql.Database
+	}
+
 	connection, err := libsql.Open("mysql", "root@localhost")
 
 	if err != nil {
@@ -36,5 +49,19 @@ func (sql Sql) Connect() Sql {
 	}
 
 	sql.SetConnection(connection)
+
  	return sql
+}
+
+func (sql Sql) Run(args ... string) (*libsql.Rows, error) {
+
+	if len(args) == 1 {
+		return sql.Query(args[0])
+	} 	
+
+	for _, cmd := range args {
+		sql.Query(cmd)
+	}
+
+	return nil, nil
 }

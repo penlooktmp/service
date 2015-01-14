@@ -12,11 +12,22 @@ import (
 
 func TestSql(t *testing.T) {
 	assert.New(t)
-	Sql {
+	sql := Sql {
 		Name : "Penlook",
 		Server: "localhost",
 		Port: 3306,
 		Database: "penlook",
 		User: "root",
+		Password: "123",
 	}.Connect()
+
+	sql.Run (
+		`DROP TABLE IF EXISTS test`,
+		`CREATE TABLE test (
+			id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+			firstname VARCHAR(30) NOT NULL,
+			lastname VARCHAR(30) NOT NULL,
+			email VARCHAR(50)
+		)`,
+	)
 }
