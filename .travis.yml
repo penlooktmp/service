@@ -20,7 +20,7 @@ install:
   - export PATH=$PATH:$HOME/gopath/bin
 
 before_script:
-  - mysql -e 'create database penlook;'
+  - mysql -e 'create database test;'
 
 script:
   - go test -v ./penlook/...
