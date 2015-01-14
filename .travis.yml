@@ -11,10 +11,16 @@ services:
   - neo4j
   - rabbitmq
 
+env:
+  - AMQP_URL=amqp://guest:guest@127.0.0.1:5672/ GOMAXPROCS=2
+
 install:
   - go get -v ./...
   - go get github.com/stretchr/testify/assert
   - export PATH=$PATH:$HOME/gopath/bin
+
+before_script:
+  - mysql -e 'create database penlook;'
 
 script:
   - go test -v ./penlook/...
