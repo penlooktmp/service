@@ -11,5 +11,17 @@ import (
 )
 
 func TestRedis(t *testing.T) {
-	assert.New(t)
+	assert := assert.New(t)
+
+	redis := Redis{
+		Name:   "Penlook",
+		Server: "localhost:6379",
+	}.Connect()
+
+	redis.Do("SET", "key", "value")
+
+	result, err := String(redis.Do("GET", "key"))
+	assert.Nil(err)
+	assert.Equal(result, "value")
+	redis.Close()
 }

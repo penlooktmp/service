@@ -23,18 +23,16 @@ func TestDoc(t *testing.T) {
 		Server: []string{
 			"localhost:27017",
 		},
-	}
+	}.Connect()
 
-	// Establish new connection
-	doc = doc.Connect()
-	penlook := 	doc.Database("penlook")
-	person  := 	penlook.Collection("person")
+	penlook := doc.Database("penlook")
+	person := penlook.Collection("person")
 
 	// Insert some documents
-	err1 	:=  person.Insert(
-					Person{"Ale", "+55 53 8116 9639"},
-					Person{"Cla", "+55 53 8402 8510"},
-			    )
+	err1 := person.Insert(
+		Person{"Ale", "+55 53 8116 9639"},
+		Person{"Cla", "+55 53 8402 8510"},
+	)
 
 	assert.Nil(err1)
 
