@@ -12,4 +12,11 @@ import (
 
 func TestSql(t *testing.T) {
 	assert.New(t)
+	Sql {
+		Name : "Penlook",
+		Server: "localhost",
+		Port: 3306,
+		Database: "penlook",
+		User: "root",
+	}.Connect()
 }
