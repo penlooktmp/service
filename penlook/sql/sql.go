@@ -6,62 +6,31 @@
 package sql
 
 import (
-	libsql "database/sql"
+	"github.com/penlook/gorm"
 	_ "github.com/penlook/mysql"
-	"strconv"
-	//"fmt"
 )
 
 type Sql struct {
 	Name string
-	Server string
-	Port int
-	Database string
-	User string
-	Password string
-	connection *libsql.DB
-	Query func(cmd string, args ...interface {}) (*libsql.Rows, error)
 }
 
-func (sql *Sql) SetConnection(connection *libsql.DB) {
-	sql.connection = connection
-	sql.Query = connection.Query
-}
-
-func (sql Sql) Connect() Sql {
-	
-	connect_str := sql.User
-
-	if sql.Password != "" {
-		connect_str += ":" + sql.Password
-	}
-
-	connect_str += "@" + sql.Server + ":" + strconv.Itoa(sql.Port)
-
-	if sql.Database != "" {
-		connect_str += "/" + sql.Database
-	}
-
-	connection, err := libsql.Open("mysql", "root@localhost")
+func (sql Sql) Connect() gorm.DB {
+	connection, err := gorm.Open("mysql", "root@tcp(localhost:3306)/test?charset=utf8&parseTime=True")
 
 	if err != nil {
 		panic(err)
 	}
 
-	sql.SetConnection(connection)
+	connection.DB()
+	err = connection.DB().Ping()
 
- 	return sql
-}
-
-func (sql Sql) Run(args ... string) (*libsql.Rows, error) {
-
-	if len(args) == 1 {
-		return sql.Query(args[0])
-	} 	
-
-	for _, cmd := range args {
-		sql.Query(cmd)
+	if err != nil {
+		panic(err)
 	}
 
-	return nil, nil
+	connection.DB().SetMaxIdleConns(10)
+	connection.DB().SetMaxOpenConns(100)
+	connection.SingularTable(true)
+
+	return connection
 }

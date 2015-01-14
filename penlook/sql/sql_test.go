@@ -6,28 +6,43 @@
 package sql
 
 import (
+	"crypto/md5"
+	"fmt"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
+type User struct {
+	Id       int64
+	Username string `sql:"type:varchar(100);"`
+	Email    string `sql:"type:varchar(100);"`
+	Password string `sql:"type:varchar(200);"`
+}
+
 func TestSql(t *testing.T) {
-	assert.New(t)
-	sql := Sql {
-		Name : "Penlook",
-		Server: "localhost",
-		Port: 3306,
-		Database: "penlook",
-		User: "root",
-		Password: "123",
+
+	assert := assert.New(t)
+
+	sql := Sql{
+		Name: "Penlook",
 	}.Connect()
 
-	sql.Run (
-		`DROP TABLE IF EXISTS test`,
-		`CREATE TABLE test (
-			id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-			firstname VARCHAR(30) NOT NULL,
-			lastname VARCHAR(30) NOT NULL,
-			email VARCHAR(50)
-		)`,
-	)
+	sql.DropTableIfExists(&User{})
+	sql.CreateTable(&User{})
+
+	for i := 0; i < 100; i++ {
+		sql.Create(User{
+			Username: "loint",
+			Email:    "loint@penlook.com",
+			Password: fmt.Sprintf("%x", md5.Sum([]byte("12345"))),
+		})
+	}
+
+	var users []User
+	var count int
+
+	sql.Find(&users).Count(&count)
+	assert.Equal(100, count)
+
+	sql.DropTableIfExists(&User{})
 }
