@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 // Author : Loi Nguyen <loint@penlook.com>
 
-package cql
+package sql
 
 import (
 	"github.com/stretchr/testify/assert"
