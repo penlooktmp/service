@@ -41,8 +41,10 @@ func TestSql(t *testing.T) {
 	var users []User
 	var count int
 
+	// Assert number of rows
 	sql.Find(&users).Count(&count)
 	assert.Equal(100, count)
 
+	// Cleanup
 	sql.DropTableIfExists(&User{})
 }

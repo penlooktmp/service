@@ -12,4 +12,8 @@ import (
 
 func TestNeo(t *testing.T) {
 	assert.New(t)
+
+	neo := Neo{}.Connect()
+
+	n0, _ := neo.CreateNode(neoism.Props{"name": kirk})
 }

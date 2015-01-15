@@ -5,7 +5,21 @@
 
 package neo
 
+import (
+	"fmt"
+	neo4j "github.com/penlook/neo4j"
+)
+
 type Neo struct {
-	Name     string
-	Server   []string
+	*neo4j
+}
+
+func (neo Neo) Connect() {
+	connection, err := neo4j.Connect("http://localhost:7474/db/data")
+
+	if err != nil {
+		panic(err)
+	}
+
+	return connection
 }
