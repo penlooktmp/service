@@ -24,7 +24,12 @@ func TestSql(t *testing.T) {
 	assert := assert.New(t)
 
 	sql := Sql{
-		Name: "Penlook",
+		Name:     "Penlook",
+		Server:   "localhost",
+		Port:     3306,
+		Database: "test",
+		Charset:  "utf8",
+		Username: "root",
 	}.Connect()
 
 	sql.DropTableIfExists(&User{})

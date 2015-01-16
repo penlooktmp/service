@@ -11,7 +11,7 @@ import (
 )
 
 type Neo struct {
-	*neo4j
+	Type
 }
 
 func (neo Neo) Connect() {

@@ -6,16 +6,33 @@
 package sql
 
 import (
+	"fmt"
 	"github.com/penlook/gorm"
 	_ "github.com/penlook/mysql"
 )
 
 type Sql struct {
-	Name string
+	Name     string
+	Server   string
+	Port     int
+	Database string
+	Charset  string
+	Username string
+	Password string
 }
 
 func (sql Sql) Connect() gorm.DB {
-	connection, err := gorm.Open("mysql", "root@tcp(localhost:3306)/test?charset=utf8&parseTime=True")
+
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=%s&parseTime=True",
+		sql.Username,
+		sql.Password,
+		sql.Server,
+		sql.Port,
+		sql.Database,
+		sql.Charset,
+	)
+
+	connection, err := gorm.Open("mysql", dsn)
 
 	if err != nil {
 		panic(err)

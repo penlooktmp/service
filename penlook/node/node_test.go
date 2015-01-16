@@ -3,17 +3,13 @@
 // license that can be found in the LICENSE file.
 // Author : Loi Nguyen <loint@penlook.com>
 
-package neo
+package node
 
 import (
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
-func TestNeo(t *testing.T) {
+func TestNode(t *testing.T) {
 	assert.New(t)
-
-	neo := Neo{}.Connect()
-
-	n0, _ := neo.CreateNode(.Props{"name": kirk})
 }
