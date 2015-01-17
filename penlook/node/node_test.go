@@ -11,5 +11,12 @@ import (
 )
 
 func TestNode(t *testing.T) {
-	assert.New(t)
+	assert := assert.New(t)
+	node := Node{
+		Name: "Test Node",
+	}
+
+	result, err := node.Abc(6, 2)
+	assert.Nil(err)
+	assert.Equal(3, result)
 }
