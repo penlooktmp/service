@@ -8,7 +8,6 @@ services:
   - redis-server
   - cassandra
   - mongodb
-  - neo4j
   - rabbitmq
 
 env:
