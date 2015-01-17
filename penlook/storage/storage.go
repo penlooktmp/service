@@ -26,6 +26,7 @@ type Storage struct {
 	tokenURL    string
 	entityName  string
 	redirectURL string
+	cacheFile   string
 	service     *gstorage.Service
 }
 
@@ -33,16 +34,15 @@ var (
 	funcName   = flag.String("flag", "", "function name to excute.\n		add - to add new object into bucket.\n		delete - to delete object from bucket")
 	fileName   = flag.String("file", "", "file name to upload to storage") // The name of the local file to upload.
 	objectName = flag.String("object", "", "object name in storage")       // This can be changed to any valid object name.
-	cacheFile  = flag.String("cache1", "cache.json", "Token cache file")
 	code       = flag.String("code", "", "Authorization Code")
 )
 
-func (storage Storage) fatalf(errorMessage string, args ...interface{}) {
-	storage.restoreOriginalState()
+func (storage Storage) Fatalf(errorMessage string, args ...interface{}) {
+	storage.RestoreOriginalState()
 	log.Fatalf("Dying with error:\n"+errorMessage, args...)
 }
 
-func (storage Storage) restoreOriginalState() bool {
+func (storage Storage) RestoreOriginalState() bool {
 	succeeded := true
 
 	// Delete an object from a bucket.
@@ -68,14 +68,14 @@ func (storage Storage) restoreOriginalState() bool {
 	return succeeded
 }
 
-func (storage Storage) createService() {
+func (storage Storage) CreateService() {
 	var config = &oauth.Config{
 		ClientId:     storage.clientId,
 		ClientSecret: storage.clientSecret,
 		Scope:        storage.scope,
 		AuthURL:      storage.authURL,
 		TokenURL:     storage.tokenURL,
-		TokenCache:   oauth.CacheFile(*cacheFile),
+		TokenCache:   oauth.CacheFile(storage.cacheFile),
 		RedirectURL:  storage.redirectURL,
 	}
 	transport := &oauth.Transport{
@@ -103,7 +103,7 @@ func (storage Storage) createService() {
 	storage.service, err = gstorage.New(httpClient)
 }
 
-func (storage Storage) listAllBucket() {
+func (storage Storage) ListAllBucket() {
 	if res, err := storage.service.Buckets.List(storage.projectID).Do(); err == nil {
 		fmt.Println("Buckets:")
 		for _, item := range res.Items {
@@ -111,24 +111,24 @@ func (storage Storage) listAllBucket() {
 		}
 		fmt.Println()
 	} else {
-		storage.fatalf("Buckets.List failed: %v", err)
+		storage.Fatalf("Buckets.List failed: %v", err)
 	}
 }
 
-func (storage Storage) insertObjectToBucket() {
+func (storage Storage) InsertObjectToBucket() {
 	object := &gstorage.Object{Name: *objectName}
 	file, err := os.Open(*fileName)
 	if err != nil {
-		storage.fatalf("Error opening %q: %v", *fileName, err)
+		storage.Fatalf("Error opening %q: %v", *fileName, err)
 	}
 	if res, err := storage.service.Objects.Insert(storage.bucketName, object).Media(file).Do(); err == nil {
 		fmt.Printf("Created object %v at location %v\n\n", res.Name, res.SelfLink)
 	} else {
-		storage.fatalf("Objects.Insert failed: %v", err)
+		storage.Fatalf("Objects.Insert failed: %v", err)
 	}
 }
 
-func (storage Storage) deleteObjectFromBucket() {
+func (storage Storage) DeleteObjectFromBucket() {
 	// Delete an object from a bucket.
 	if err := storage.service.Objects.Delete(storage.bucketName, *objectName).Do(); err == nil {
 		fmt.Printf("Successfully deleted %s/%s during cleanup.\n\n", storage.bucketName, *objectName)
@@ -138,13 +138,13 @@ func (storage Storage) deleteObjectFromBucket() {
 	}
 }
 
-func (storage Storage) insertACLForObject() {
+func (storage Storage) InsertACLForObject() {
 	objectAcl := &gstorage.ObjectAccessControl{
 		Bucket: storage.bucketName, Entity: storage.entityName, Object: *objectName, Role: "READER",
 	}
 	if res, err := storage.service.ObjectAccessControls.Insert(storage.bucketName, *objectName, objectAcl).Do(); err == nil {
 		fmt.Printf("Result of inserting ACL for %v/%v:\n%v\n\n", storage.bucketName, *objectName, res)
 	} else {
-		storage.fatalf("Failed to insert ACL for %s/%s: %v.", storage.bucketName, *objectName, err)
+		storage.Fatalf("Failed to insert ACL for %s/%s: %v.", storage.bucketName, *objectName, err)
 	}
 }

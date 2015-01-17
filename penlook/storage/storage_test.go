@@ -5,20 +5,27 @@
 package storage
 
 import (
-	"github.com/stretchr/testify/assert"
+	gstorage "code.google.com/p/google-api-go-client/storage/v1"
+	// "github.com/stretchr/testify/assert"
 	"testing"
 )
 
-type User struct {
-	bucketName   string "static.penlook.com"
-	projectID    string "penlook-app"
-	clientId     string "769231272797-jo8jbdshck6pfs1hb6dfki7rlkm407ko.apps.googleusercontent.com"
-	clientSecret string "ODZ9HsFaMkiMEZeE9tYgKp7j"
+func TestStore(t *testing.T) {
+	// assert := assert.New(t)
 
-	// For the basic sample, these variables need not be changed.
-	scope       string gstorage.DevstorageFull_controlScope
-	authURL     string "https://accounts.google.com/o/oauth2/auth"
-	tokenURL    string "https://accounts.google.com/o/oauth2/token"
-	entityName  string "allUsers"
-	redirectURL string "urn:ietf:wg:oauth:2.0:oob"
+	storage := Storage{
+		bucketName:   "static.penlook.com",
+		projectID:    "penlook-app",
+		clientId:     "769231272797-jo8jbdshck6pfs1hb6dfki7rlkm407ko.apps.googleusercontent.com",
+		clientSecret: "ODZ9HsFaMkiMEZeE9tYgKp7j",
+
+		scope:       gstorage.DevstorageFull_controlScope,
+		authURL:     "https://accounts.google.com/o/oauth2/auth",
+		tokenURL:    "https://accounts.google.com/o/oauth2/token",
+		entityName:  "allUsers",
+		redirectURL: "urn:ietf:wg:oauth:2.0:oob",
+		cacheFile:   "config.json",
+		service:     nil,
+	}
+	storage.CreateService()
 }
