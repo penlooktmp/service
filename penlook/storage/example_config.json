@@ -1,0 +1,11 @@
+{
+	"BucketName":   <your-buket-name>,
+	"ProjectID":    <your-project-id>,
+	"ClientId":     <your-client-id>,
+	"ClientSecret": <your-client-secret>,
+	"AuthURL":      <your-auth-url>,
+	"TokenURL":     <your-token-url>,
+	"EntityName":   <your-entity-name>,
+	"RedirectURL":  <your-redirect-url>,
+	"CacheFile":    <your-cache-file>
+}

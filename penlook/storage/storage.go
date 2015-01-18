@@ -7,6 +7,7 @@ package storage
 import (
 	"code.google.com/p/goauth2/oauth"
 	gstorage "code.google.com/p/google-api-go-client/storage/v1"
+	"encoding/json"
 	"flag"
 	"fmt"
 	"log"
@@ -66,6 +67,19 @@ func (storage Storage) RestoreOriginalState() bool {
 		fmt.Println("WARNING: Final cleanup attempt failed. Original state could not be restored.\n")
 	}
 	return succeeded
+}
+
+func CreateStorage(configFile string) Storage {
+	file, _ := os.Open(configFile)
+	decoder := json.NewDecoder(file)
+	storage := Storage{}
+	err := decoder.Decode(&storage)
+	if err != nil {
+		fmt.Println("error:", err)
+	}
+	storage.Service = storage.CreateService()
+	storage.Scope = gstorage.DevstorageFull_controlScope
+	return storage
 }
 
 func (storage Storage) CreateService() *gstorage.Service {
@@ -148,23 +162,4 @@ func (storage Storage) InsertACLForObject() {
 	} else {
 		storage.Fatalf("Failed to insert ACL for %s/%s: %v.", storage.BucketName, *objectName, err)
 	}
-}
-
-func main() {
-	storage := Storage{
-		BucketName:   "static.penlook.com",
-		ProjectID:    "penlook-app",
-		ClientId:     "769231272797-jo8jbdshck6pfs1hb6dfki7rlkm407ko.apps.googleusercontent.com",
-		ClientSecret: "ODZ9HsFaMkiMEZeE9tYgKp7j",
-
-		Scope:       gstorage.DevstorageFull_controlScope,
-		AuthURL:     "https://accounts.google.com/o/oauth2/auth",
-		TokenURL:    "https://accounts.google.com/o/oauth2/token",
-		EntityName:  "allUsers",
-		RedirectURL: "urn:ietf:wg:oauth:2.0:oob",
-		CacheFile:   "cache.json",
-		Service:     nil,
-	}
-	storage.Service = storage.CreateService()
-	storage.ListAllBucket()
 }
