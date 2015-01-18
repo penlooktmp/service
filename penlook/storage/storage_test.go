@@ -14,18 +14,19 @@ func TestStore(t *testing.T) {
 	// assert := assert.New(t)
 
 	storage := Storage{
-		bucketName:   "static.penlook.com",
-		projectID:    "penlook-app",
-		clientId:     "769231272797-jo8jbdshck6pfs1hb6dfki7rlkm407ko.apps.googleusercontent.com",
-		clientSecret: "ODZ9HsFaMkiMEZeE9tYgKp7j",
+		BucketName:   "static.penlook.com",
+		ProjectID:    "penlook-app",
+		ClientId:     "769231272797-jo8jbdshck6pfs1hb6dfki7rlkm407ko.apps.googleusercontent.com",
+		ClientSecret: "ODZ9HsFaMkiMEZeE9tYgKp7j",
 
-		scope:       gstorage.DevstorageFull_controlScope,
-		authURL:     "https://accounts.google.com/o/oauth2/auth",
-		tokenURL:    "https://accounts.google.com/o/oauth2/token",
-		entityName:  "allUsers",
-		redirectURL: "urn:ietf:wg:oauth:2.0:oob",
-		cacheFile:   "config.json",
-		service:     nil,
+		Scope:       gstorage.DevstorageFull_controlScope,
+		AuthURL:     "https://accounts.google.com/o/oauth2/auth",
+		TokenURL:    "https://accounts.google.com/o/oauth2/token",
+		EntityName:  "allUsers",
+		RedirectURL: "urn:ietf:wg:oauth:2.0:oob",
+		CacheFile:   "cache.json",
+		Service:     nil,
 	}
-	storage.CreateService()
+	storage.Service = storage.CreateService()
+	storage.ListAllBucket()
 }

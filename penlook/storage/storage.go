@@ -15,19 +15,19 @@ import (
 )
 
 type Storage struct {
-	bucketName   string
-	projectID    string
-	clientId     string
-	clientSecret string
+	BucketName   string
+	ProjectID    string
+	ClientId     string
+	ClientSecret string
 
 	// For the basic sample, these variables need not be changed.
-	scope       string
-	authURL     string
-	tokenURL    string
-	entityName  string
-	redirectURL string
-	cacheFile   string
-	service     *gstorage.Service
+	Scope       string
+	AuthURL     string
+	TokenURL    string
+	EntityName  string
+	RedirectURL string
+	CacheFile   string
+	Service     *gstorage.Service
 }
 
 var (
@@ -46,16 +46,16 @@ func (storage Storage) RestoreOriginalState() bool {
 	succeeded := true
 
 	// Delete an object from a bucket.
-	if err := storage.service.Objects.Delete(storage.bucketName, *objectName).Do(); err == nil {
-		fmt.Printf("Successfully deleted %s/%s during cleanup.\n\n", storage.bucketName, objectName)
+	if err := storage.Service.Objects.Delete(storage.BucketName, *objectName).Do(); err == nil {
+		fmt.Printf("Successfully deleted %s/%s during cleanup.\n\n", storage.BucketName, objectName)
 	} else {
 		// If the object exists but wasn't deleted, the bucket deletion will also fail.
 		fmt.Printf("Could not delete object during cleanup: %v\n\n", err)
 	}
 
 	// Delete a bucket in the project
-	if err := storage.service.Buckets.Delete(storage.bucketName).Do(); err == nil {
-		fmt.Printf("Successfully deleted bucket %s during cleanup.\n\n", storage.bucketName)
+	if err := storage.Service.Buckets.Delete(storage.BucketName).Do(); err == nil {
+		fmt.Printf("Successfully deleted bucket %s during cleanup.\n\n", storage.BucketName)
 	} else {
 		succeeded = false
 		fmt.Printf("Could not delete bucket during cleanup: %v\n\n", err)
@@ -68,15 +68,15 @@ func (storage Storage) RestoreOriginalState() bool {
 	return succeeded
 }
 
-func (storage Storage) CreateService() {
+func (storage Storage) CreateService() *gstorage.Service {
 	var config = &oauth.Config{
-		ClientId:     storage.clientId,
-		ClientSecret: storage.clientSecret,
-		Scope:        storage.scope,
-		AuthURL:      storage.authURL,
-		TokenURL:     storage.tokenURL,
-		TokenCache:   oauth.CacheFile(storage.cacheFile),
-		RedirectURL:  storage.redirectURL,
+		ClientId:     storage.ClientId,
+		ClientSecret: storage.ClientSecret,
+		Scope:        storage.Scope,
+		AuthURL:      storage.AuthURL,
+		TokenURL:     storage.TokenURL,
+		TokenCache:   oauth.CacheFile(storage.CacheFile),
+		RedirectURL:  storage.RedirectURL,
 	}
 	transport := &oauth.Transport{
 		Config:    config,
@@ -100,11 +100,12 @@ func (storage Storage) CreateService() {
 	transport.Token = token
 
 	httpClient := transport.Client()
-	storage.service, err = gstorage.New(httpClient)
+	service, err := gstorage.New(httpClient)
+	return service
 }
 
 func (storage Storage) ListAllBucket() {
-	if res, err := storage.service.Buckets.List(storage.projectID).Do(); err == nil {
+	if res, err := storage.Service.Buckets.List(storage.ProjectID).Do(); err == nil {
 		fmt.Println("Buckets:")
 		for _, item := range res.Items {
 			fmt.Println(item.Id)
@@ -121,7 +122,7 @@ func (storage Storage) InsertObjectToBucket() {
 	if err != nil {
 		storage.Fatalf("Error opening %q: %v", *fileName, err)
 	}
-	if res, err := storage.service.Objects.Insert(storage.bucketName, object).Media(file).Do(); err == nil {
+	if res, err := storage.Service.Objects.Insert(storage.BucketName, object).Media(file).Do(); err == nil {
 		fmt.Printf("Created object %v at location %v\n\n", res.Name, res.SelfLink)
 	} else {
 		storage.Fatalf("Objects.Insert failed: %v", err)
@@ -130,8 +131,8 @@ func (storage Storage) InsertObjectToBucket() {
 
 func (storage Storage) DeleteObjectFromBucket() {
 	// Delete an object from a bucket.
-	if err := storage.service.Objects.Delete(storage.bucketName, *objectName).Do(); err == nil {
-		fmt.Printf("Successfully deleted %s/%s during cleanup.\n\n", storage.bucketName, *objectName)
+	if err := storage.Service.Objects.Delete(storage.BucketName, *objectName).Do(); err == nil {
+		fmt.Printf("Successfully deleted %s/%s during cleanup.\n\n", storage.BucketName, *objectName)
 	} else {
 		// If the object exists but wasn't deleted, the bucket deletion will also fail.
 		fmt.Printf("Could not delete object during cleanup: %v\n\n", err)
@@ -140,11 +141,30 @@ func (storage Storage) DeleteObjectFromBucket() {
 
 func (storage Storage) InsertACLForObject() {
 	objectAcl := &gstorage.ObjectAccessControl{
-		Bucket: storage.bucketName, Entity: storage.entityName, Object: *objectName, Role: "READER",
+		Bucket: storage.BucketName, Entity: storage.EntityName, Object: *objectName, Role: "READER",
 	}
-	if res, err := storage.service.ObjectAccessControls.Insert(storage.bucketName, *objectName, objectAcl).Do(); err == nil {
-		fmt.Printf("Result of inserting ACL for %v/%v:\n%v\n\n", storage.bucketName, *objectName, res)
+	if res, err := storage.Service.ObjectAccessControls.Insert(storage.BucketName, *objectName, objectAcl).Do(); err == nil {
+		fmt.Printf("Result of inserting ACL for %v/%v:\n%v\n\n", storage.BucketName, *objectName, res)
 	} else {
-		storage.Fatalf("Failed to insert ACL for %s/%s: %v.", storage.bucketName, *objectName, err)
+		storage.Fatalf("Failed to insert ACL for %s/%s: %v.", storage.BucketName, *objectName, err)
 	}
+}
+
+func main() {
+	storage := Storage{
+		BucketName:   "static.penlook.com",
+		ProjectID:    "penlook-app",
+		ClientId:     "769231272797-jo8jbdshck6pfs1hb6dfki7rlkm407ko.apps.googleusercontent.com",
+		ClientSecret: "ODZ9HsFaMkiMEZeE9tYgKp7j",
+
+		Scope:       gstorage.DevstorageFull_controlScope,
+		AuthURL:     "https://accounts.google.com/o/oauth2/auth",
+		TokenURL:    "https://accounts.google.com/o/oauth2/token",
+		EntityName:  "allUsers",
+		RedirectURL: "urn:ietf:wg:oauth:2.0:oob",
+		CacheFile:   "cache.json",
+		Service:     nil,
+	}
+	storage.Service = storage.CreateService()
+	storage.ListAllBucket()
 }
