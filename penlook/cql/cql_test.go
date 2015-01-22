@@ -16,4 +16,5 @@ func TestCql(t *testing.T) {
 		Name:  "Penlook",
 		Server: "Abc",
 	}
+	cql.Connect()
 }

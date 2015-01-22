@@ -6,7 +6,7 @@ package storage
 
 import (
 	// gstorage "code.google.com/p/google-api-go-client/storage/v1"
-	// "github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
