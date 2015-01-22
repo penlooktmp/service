@@ -9,7 +9,7 @@ import (
 	"testing"
 )
 
-func TestSocket(t *testing.T) {
+func TestStorage(t *testing.T) {
 	assert := assert.New(t)
 
 	var a string = "Hello"

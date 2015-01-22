@@ -13,7 +13,12 @@ import (
 func TestStore(t *testing.T) {
 	// assert := assert.New(t)
 
-	storage := CreateStorage("config.json")
-	storage.ListAllBucket()
+	//storage := CreateStorage("config.json")
+	//storage.ListAllBucket()
+	assert := assert.New(t)
 
+	var a string = "Hello"
+	var b string = "Hello"
+
+	assert.Equal(a, b)
 }
