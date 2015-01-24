@@ -7,7 +7,7 @@ package main
 
 import (
 	"github.com/penlook/daemon"
-	"github.com/penlook/service/penlook"
+	"github.com/penlook/service/module"
 )
 
 func main() {
@@ -15,7 +15,7 @@ func main() {
 	service := daemon.Service{
 		Name:        "api",
 		Description: "Penlook API Service",
-		Process:     penlook.Api,
+		Process:     Api,
 	}
 
 	service.Initialize()
