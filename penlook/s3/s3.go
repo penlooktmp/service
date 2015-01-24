@@ -1,22 +1,20 @@
-package main
+// Copyright 2014 Penlook Development Team. All rights reserved.
+// Use of this source code is governed by
+// license that can be found in the LICENSE file.
+// Author : Tin Nguyen <tinntt@penlook.com>
+package s3
 
 import (
-	// "fmt"
 	"github.com/mitchellh/goamz/aws"
 	"github.com/mitchellh/goamz/s3"
 	"io/ioutil"
 	"log"
 )
 
-func main() {
-	// Put("penlook-abc", "/home/tinntt/228990_depotcache_1.csd", "sample2.txt", "text/plain")
-	// Delete("penlook-abc", "sample1.txt")
-	// resp := ListAllBucket()
-	// log.Print(fmt.Sprintf("%T %+v", resp.Buckets[0], resp.Buckets[0]))
-	Get("penlook-abc", "sample2.txt", "/home/tinntt/test.txt", "text/plain")
+type S3 struct {
 }
 
-func Put(bucketName string, fileName string, objectName string, contType string) {
+func (s3 S3) Put(bucketName string, fileName string, objectName string, contType string) {
 	auth, err := aws.EnvAuth()
 
 	if err != nil {
@@ -37,7 +35,7 @@ func Put(bucketName string, fileName string, objectName string, contType string)
 	}
 }
 
-func Get(bucketName string, objectName string, fileName string, contType string) {
+func (s3 S3) Get(bucketName string, objectName string, fileName string, contType string) {
 	auth, err := aws.EnvAuth()
 
 	if err != nil {
@@ -64,7 +62,7 @@ func Get(bucketName string, objectName string, fileName string, contType string)
 	}
 }
 
-func Delete(bucketName string, objectName string) {
+func (s3 S3) Delete(bucketName string, objectName string) {
 	auth, err := aws.EnvAuth()
 	if err != nil {
 		log.Fatal(err)
@@ -78,7 +76,7 @@ func Delete(bucketName string, objectName string) {
 	}
 }
 
-func ListAllBucket() *s3.ListBucketsResp {
+func (s3 S3) ListAllBucket() *s3.ListBucketsResp {
 	auth, err := aws.EnvAuth()
 	if err != nil {
 		log.Fatal(err)
