@@ -20,3 +20,7 @@ func main() {
 
 	service.Initialize()
 }
+
+func Api() {
+	// Api service in here
+}

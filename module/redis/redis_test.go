@@ -22,6 +22,6 @@ func TestRedis(t *testing.T) {
 
 	result, err := String(redis.Do("GET", "key"))
 	assert.Nil(err)
-	assert.Equal(result, "valuex")
+	assert.Equal(result, "value")
 	redis.Close()
 }

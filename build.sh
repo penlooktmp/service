@@ -9,15 +9,16 @@ function build {
 	SERVICE=$(echo $1 | rev | cut -d"/" -f1 | rev)
 	cd $SERVICE
 	go build service.go
-	service $SERVICE stop
-	./service remove
-	./service install
+	#service $SERVICE stop
+	#./service remove
+	#./service install
 }
 
+cd services
+
+# Build command
 if [ -z "$1" ]
 then
-	ROOT=`pwd`
-	cd services
 	for D in `find . -type d`
 	do
 		if [ $D != "." ]
@@ -26,5 +27,5 @@ then
 		fi
 	done
 else
-	build services/$1
+	build $1
 fi

@@ -15,8 +15,12 @@ func main() {
 	service := daemon.Service{
 		Name:        "socket",
 		Description: "Penlook Socket Service",
-		Process:     module.Socket,
+		Process:     Socket,
 	}
 
 	service.Initialize()
+}
+
+func Socket() {
+	// Socket service in here
 }

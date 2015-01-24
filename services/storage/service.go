@@ -20,3 +20,7 @@ func main() {
 
 	service.Initialize()
 }
+
+func Storage() {
+	// Storage service in here
+}

@@ -5,5 +5,5 @@ import (
 )
 
 func Storage() {
-	log.Println("Serving at localhost:5000...")
+	log.Println("Service is running")
 }
