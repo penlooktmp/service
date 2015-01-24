@@ -1,7 +1,7 @@
 // Copyright 2014 Penlook Development Team. All rights reserved.
 // Use of this source code is governed by
 // license that can be found in the LICENSE file.
-// Author : Tim Nguyen <tinntt@penlook.com>
+// Author : Tin Nguyen <tinntt@penlook.com>
 
 package main
 
@@ -14,7 +14,7 @@ func main() {
 
 	service := daemon.Service{
 		Name:        "storage",
-		Description: "Penlook API Service",
+		Description: "Penlook Storage Service",
 		Process:     penlook.Storage,
 	}
 
