@@ -7,5 +7,9 @@ package cql
 
 type Cql struct {
 	Name     string
-	Server   []string
+	Server   string
+}
+
+func (cql Cql) Connect() Cql {
+	return cql
 }

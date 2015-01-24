@@ -12,4 +12,9 @@ import (
 
 func TestCql(t *testing.T) {
 	assert.New(t)
+	cql := Cql {
+		Name:  "Penlook",
+		Server: "Abc",
+	}
+	cql.Connect()
 }
