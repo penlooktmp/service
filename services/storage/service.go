@@ -7,7 +7,7 @@ package main
 
 import (
 	"github.com/penlook/daemon"
-	"github.com/penlook/service/module"
+	"github.com/penlook/service/modules"
 )
 
 func main() {
