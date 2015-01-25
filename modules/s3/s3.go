@@ -5,8 +5,9 @@
 package s3
 
 import (
+	"fmt"
 	"github.com/mitchellh/goamz/aws"
-	"github.com/mitchellh/goamz/s3"
+	goamz_s3 "github.com/mitchellh/goamz/s3"
 	"io/ioutil"
 	"log"
 )
@@ -24,11 +25,11 @@ func (s3 S3) Put(bucketName string, fileName string, objectName string, contType
 		contType = "text/plain"
 	}
 
-	client := s3.New(auth, aws.APNortheast)
+	client := goamz_s3.New(auth, aws.APNortheast)
 	bucket := client.Bucket(bucketName)
 
 	data, err := ioutil.ReadFile(fileName)
-	err = bucket.Put(objectName, data, contType, s3.BucketOwnerFull)
+	err = bucket.Put(objectName, data, contType, goamz_s3.BucketOwnerFull)
 
 	if err != nil {
 		log.Fatal(err)
@@ -46,7 +47,7 @@ func (s3 S3) Get(bucketName string, objectName string, fileName string, contType
 		contType = "text/plain"
 	}
 
-	client := s3.New(auth, aws.APNortheast)
+	client := goamz_s3.New(auth, aws.APNortheast)
 	bucket := client.Bucket(bucketName)
 
 	data, err := bucket.Get(objectName)
@@ -67,7 +68,7 @@ func (s3 S3) Delete(bucketName string, objectName string) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	client := s3.New(auth, aws.APNortheast)
+	client := goamz_s3.New(auth, aws.APNortheast)
 	bucket := client.Bucket(bucketName)
 
 	err = bucket.Del(objectName)
@@ -76,13 +77,13 @@ func (s3 S3) Delete(bucketName string, objectName string) {
 	}
 }
 
-func (s3 S3) ListAllBucket() *s3.ListBucketsResp {
+func (s3 S3) ListAllBucket() *goamz_s3.ListBucketsResp {
 	auth, err := aws.EnvAuth()
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	client := s3.New(auth, aws.APNortheast)
+	client := goamz_s3.New(auth, aws.APNortheast)
 	resp, err := client.ListBuckets()
 
 	if err != nil {

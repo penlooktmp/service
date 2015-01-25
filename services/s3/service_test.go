@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestStorage(t *testing.T) {
+func TestS3(t *testing.T) {
 	assert := assert.New(t)
 
 	var a string = "Hello"
