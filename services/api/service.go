@@ -7,7 +7,7 @@ package main
 
 import (
 	"github.com/penlook/daemon"
-	"github.com/penlook/service/modules"
+	sql "github.com/penlook/service/modules/sql"
 )
 
 func main() {
@@ -21,6 +21,24 @@ func main() {
 	service.Initialize()
 }
 
+type User struct {
+	Id       int64
+	Username string `sql:"type:varchar(100);"`
+	Email    string `sql:"type:varchar(100);"`
+	Password string `sql:"type:varchar(200);"`
+}
+
 func Api() {
+
+	sql := sql.Sql{
+		Name:     "Penlook",
+		Server:   "localhost",
+		Port:     3306,
+		Database: "test",
+		Charset:  "utf8",
+		Username: "root",
+	}.Connect()
+
+	sql.DropTableIfExists(&User{})
 	// Api service in here
 }
