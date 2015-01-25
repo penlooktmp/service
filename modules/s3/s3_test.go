@@ -2,7 +2,7 @@
 // Use of this source code is governed by
 // license that can be found in the LICENSE file.
 // Author : Tin Nguyen <tinntt@penlook.com>
-package storage
+package s3
 
 import (
 	// gstorage "code.google.com/p/google-api-go-client/storage/v1"
