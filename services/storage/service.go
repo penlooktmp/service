@@ -7,14 +7,13 @@ package main
 
 import (
 	"github.com/penlook/daemon"
-	"github.com/penlook/service/modules"
 )
 
 func main() {
 
 	service := daemon.Service{
 		Name:        "storage",
-		Description: "Penlook API Service",
+		Description: "Penlook Storage Service",
 		Process:     Storage,
 	}
 

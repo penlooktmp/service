@@ -8,10 +8,11 @@
 function build {
 	SERVICE=$(echo $1 | rev | cut -d"/" -f1 | rev)
 	cd $SERVICE
-	go build service.go
-	#service $SERVICE stop
-	#./service remove
-	#./service install
+	go test
+	go build
+	sudo service $SERVICE stop
+	sudo ./service remove
+	sudo ./service install
 }
 
 cd services
