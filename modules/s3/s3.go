@@ -5,7 +5,6 @@
 package s3
 
 import (
-	"fmt"
 	"github.com/mitchellh/goamz/aws"
 	goamz_s3 "github.com/mitchellh/goamz/s3"
 	"io/ioutil"
