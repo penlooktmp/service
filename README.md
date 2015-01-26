@@ -8,12 +8,13 @@ Build status
 
 ```bash
 ./service.sh name action1 action2 ... actionN
+./service.sh name client lang1 lang2 ... langN
 ```
 
 ### Test Driven Development
 
 ```bash
-./service.sh api clean build start watch
+./service.sh api clean build start
 ./service.sh api test
 ```
 
@@ -27,5 +28,13 @@ watch
 start
 stop
 restart
+```
+
+### Language
+```bash
+php
+js
+rb
+py
 ```
 

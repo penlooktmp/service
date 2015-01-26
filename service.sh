@@ -63,6 +63,7 @@ function test {
 	LOGFILE="/var/log/$1.log"
 	ERRFILE="/var/log/$1.err"
 
+	status $1
 	cd $1
 	go test -v
 	cat $LOGFILE
@@ -104,6 +105,20 @@ function debug {
 	done
 }
 
+function client {
+	SERVICE=$(service_name $1)
+	CLIENT="./client/$SERVICE/main"
+	sudo chmod +x $CLIENT*
+
+	for cmd in $@
+	do
+		if [ $cmd != $SERVICE ] &&  [ $cmd != $2 ]
+		then
+			[ -e $CLIENT.$cmd ] && eval $CLIENT.$cmd
+		fi
+	done
+}
+
 # Main function
 function main {
 
@@ -132,7 +147,14 @@ function main {
 
 		if [ $1 == "watch" ] || [ $1 == "clean" ]
 		then
-			watch
+			$1
+			exit
+		fi
+
+		if [ $2 == "client" ]
+		then
+			cd ..
+			$2 $@
 			exit
 		fi
 
