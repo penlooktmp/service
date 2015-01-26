@@ -16,24 +16,57 @@ function service_name {
 	echo $1 | rev | cut -d"/" -f1 | rev
 }
 
-# Build services
+# Build service
 function build {
+
 	cd $1
 	go build
 	sudo ./$SERVICE remove
 	sudo ./$SERVICE install
+
+	LOGFILE="/var/log/$1.log"
+	ERRFILE="/var/log/$1.err"
+
+	[[ -e $LOGFILE ]] || sudo touch $LOGFILE
+	[[ -e $ERRFILE ]] || sudo touch $ERRFILE
+
+	sudo chmod a+w $LOGFILE
+	sudo chmod a+w $ERRFILE
+
+	echo "" > $LOGFILE
+	echo "" > $ERRFILE
+
 	cd ../
 }
 
-# Watch services
+# Watch service
 function watch {
 	sudo netstat -tulpn
 }
 
-# Test services
+# Cleanup service
+function clean {
+
+	stop $1
+
+	LOGFILE="/var/log/$1.log"
+	ERRFILE="/var/log/$1.err"
+	PIDFILE="/var/run/$1.pid"
+
+	sudo rm -rf $LOGFILE
+	sudo rm -rf $ERRFILE
+	sudo rm -rf $PIDFILE
+}
+
+# Test service
 function test {
+	LOGFILE="/var/log/$1.log"
+	ERRFILE="/var/log/$1.err"
+
 	cd $1
-	go test
+	go test -v
+	cat $LOGFILE
+	cat $ERRFILE
 	cd ..
 }
 
@@ -73,6 +106,7 @@ function debug {
 
 # Main function
 function main {
+
 	daemon
 	cd services
 
@@ -96,7 +130,7 @@ function main {
 			exit
 		fi
 
-		if [ $1 == "watch" ]
+		if [ $1 == "watch" ] || [ $1 == "clean" ]
 		then
 			watch
 			exit

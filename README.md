@@ -6,18 +6,22 @@ Build status
 
 ### Command
 
-./service.sh name action1 action2 ... actionN
-
-Sample:
-
 ```bash
-./service.sh api build restart test
+./service.sh name action1 action2 ... actionN
 ```
 
-Action
+### Test Driven Development
+
+```bash
+./service.sh api clean build start watch
+./service.sh api test
+```
+
+### Action
 
 ```bash
 build
+clean
 test
 watch
 start
