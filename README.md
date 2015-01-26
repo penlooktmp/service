@@ -10,6 +10,8 @@ Build status
 
 Sample:
 
+```bash
 ./service.sh api build start
 ./service.sh api start test
+```
 
