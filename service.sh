@@ -12,7 +12,7 @@ function daemon {
 }
 
 # Get service name
-function service {
+function service_name {
 	echo $1 | rev | cut -d"/" -f1 | rev
 }
 
@@ -20,8 +20,6 @@ function service {
 function build {
 	cd $1
 	go build
-	sudo service $1 stop
-	sudo rm -rf /var/run/api.pid
 	sudo ./$SERVICE remove
 	sudo ./$SERVICE install
 	cd ../
@@ -62,7 +60,7 @@ function restart {
 
 # Debug mode
 function debug {
-	SERVICE=$(service $1)
+	SERVICE=$(service_name $1)
 
 	for cmd in $@
 	do
