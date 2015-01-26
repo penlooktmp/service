@@ -6,11 +6,22 @@ Build status
 
 ### Command
 
-./service.sh service_name action1 action2 ... actionN
+./service.sh name action1 action2 ... actionN
 
 Sample:
 
 ```bash
 ./service.sh api build restart test
+```
+
+Action
+
+```bash
+build
+test
+watch
+start
+stop
+restart
 ```
 
