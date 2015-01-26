@@ -14,7 +14,7 @@ func main() {
 	service := daemon.Service{
 		Name:        "storage",
 		Description: "Penlook Storage Service",
-		Process:     module.Storage,
+		Process:     Storage,
 	}
 
 	service.Initialize()
