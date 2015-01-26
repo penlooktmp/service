@@ -11,22 +11,36 @@ function build {
 	go test
 	go build
 	sudo service $SERVICE stop
-	sudo ./service remove
-	sudo ./service install
+	sudo rm -rf /var/run/api.pid
+	sudo ./$SERVICE remove
+	sudo ./$SERVICE install
 }
 
-cd services
+# Watch all services
+function watch {
+	SERVICE=$(echo $1 | rev | cut -d"/" -f1 | rev)
+	sudo service $SERVICE start
+	sudo netstat -tulpn
+}
 
-# Build command
-if [ -z "$1" ]
-then
-	for D in `find . -type d`
-	do
-		if [ $D != "." ]
-		then
-			build $D
-		fi
-	done
-else
-	build $1
-fi
+# Main function
+function main {
+	cd services
+
+	# Build command
+	if [ -z "$1" ]
+	then
+		for D in `find . -type d`
+		do
+			if [ $D != "." ]
+			then
+				build $D
+			fi
+		done
+	else
+		build $1
+		watch $1
+	fi
+}
+
+main $1

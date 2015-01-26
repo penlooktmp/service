@@ -7,7 +7,7 @@ package main
 
 import (
 	"github.com/penlook/daemon"
-	sql "github.com/penlook/service/modules/sql"
+	"github.com/penlook/gin"
 )
 
 func main() {
@@ -29,16 +29,18 @@ type User struct {
 }
 
 func Api() {
-
-	sql := sql.Sql{
-		Name:     "Penlook",
-		Server:   "localhost",
-		Port:     3306,
-		Database: "test",
-		Charset:  "utf8",
-		Username: "root",
-	}.Connect()
-
-	sql.DropTableIfExists(&User{})
-	// Api service in here
+	router := gin.Default()
+	router.GET("/", func(c *gin.Context) {
+		c.String(200, "hello world")
+	})
+	router.GET("/ping", func(c *gin.Context) {
+		c.String(200, "pong")
+	})
+	router.POST("/submit", func(c *gin.Context) {
+		c.String(401, "not authorized")
+	})
+	router.PUT("/error", func(c *gin.Context) {
+		c.String(500, "and error hapenned :(")
+	})
+	router.Run(":8080")
 }
