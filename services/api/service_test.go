@@ -13,4 +13,6 @@ func TestService(t *testing.T) {
 	assert.Nil(err)
 }
 
-func TestStatus()
+func TestStatus(t *testing.T) {
+
+}

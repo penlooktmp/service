@@ -4,6 +4,12 @@ import (
 	"github.com/penlook/gin"
 )
 
+func postStatus(c *gin.Context) {
+	c.JSON(200, gin.H{
+		"status": "Get One Status",
+	})
+}
+
 func getAllStatus(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"status": "Get All Status",
@@ -11,6 +17,18 @@ func getAllStatus(c *gin.Context) {
 }
 
 func getStatus(c *gin.Context) {
+	c.JSON(200, gin.H{
+		"status": "Get One Status",
+	})
+}
+
+func updateStatus(c *gin.Context) {
+	c.JSON(200, gin.H{
+		"status": "Get One Status",
+	})
+}
+
+func deleteStatus(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"status": "Get One Status",
 	})

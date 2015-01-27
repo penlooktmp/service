@@ -13,25 +13,28 @@ func (router Router) GetHandler() *gin.Engine {
 }
 
 func (router Router) Register() {
-	router.Status()
-	router.Comment()
-	router.Activity()
+	router.Status("/status")
+	router.Comment("/comment")
+	router.Activity("/activity")
 }
 
-func (router Router) Status() {
+func (router Router) Status(root string) {
 	route := router.Handler
-	route.GET("/status", getAllStatus)
-	route.GET("/status/:id", getStatus)
+	route.POST(root, postStatus)
+	route.GET(root, getAllStatus)
+	route.GET(root+"/:id", getStatus)
+	route.PUT(root+"/:id", updateStatus)
+	route.DELETE(root+"/:id", deleteStatus)
 }
 
-func (router Router) Comment() {
+func (router Router) Comment(root string) {
 	route := router.Handler
-	route.GET("/comment", getAllComments)
-	route.GET("/comment/:id", getComment)
+	route.GET(root, getAllComments)
+	route.GET(root+"/:id", getComment)
 }
 
-func (router Router) Activity() {
+func (router Router) Activity(root string) {
 	route := router.Handler
-	route.GET("/activity", getAllActivities)
-	route.GET("/activity/:id", getActivity)
+	route.GET(root, getAllActivities)
+	route.GET(root+"/:id", getActivity)
 }
