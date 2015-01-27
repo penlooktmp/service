@@ -14,10 +14,7 @@ func main() {
 	service := daemon.Service{
 		Name:        "api",
 		Description: "Penlook API Service",
-		Process: []func(){
-			LocalApi,
-			RemoteApi,
-		},
+		Process:     Api,
 	}
 
 	service.Initialize()

@@ -10,7 +10,7 @@ import (
 func TestTcpClient(t *testing.T) {
 	assert := assert.New(t)
 
-	conn, err := net.Dial("tcp", ":8881")
+	conn, err := net.Dial("tcp", ":8080")
 	assert.Nil(err)
 
 	conn.Write([]byte("Hello Server"))
