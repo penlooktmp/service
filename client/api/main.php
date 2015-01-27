@@ -1,3 +1,3 @@
 #! /usr/bin/env php
 <?php
-echo "PHP CLIENT";
+echo "PHP CLIENT \n";

@@ -15,7 +15,10 @@ func main() {
 	service := daemon.Service{
 		Name:        "api",
 		Description: "Penlook API Service",
-		Process:     Api,
+		Process: []func(){
+			LocalApi,
+			RemoteApi,
+		},
 	}
 
 	service.Initialize()
@@ -28,7 +31,11 @@ type User struct {
 	Password string `sql:"type:varchar(200);"`
 }
 
-func Api() {
+func LocalApi() {
+	// Local
+}
+
+func RemoteApi() {
 	router := gin.Default()
 	router.GET("/", func(c *gin.Context) {
 		c.String(200, "hello world")
