@@ -1,8 +1,6 @@
 package main
 
 import (
-	//"bufio"
-	//"fmt"
 	"github.com/stretchr/testify/assert"
 	"net"
 	"testing"
@@ -12,7 +10,7 @@ import (
 func TestTcpClient(t *testing.T) {
 	assert := assert.New(t)
 
-	conn, err := net.Dial("tcp", ":80")
+	conn, err := net.Dial("tcp", ":8881")
 	assert.Nil(err)
 
 	conn.Write([]byte("Hello Server"))
