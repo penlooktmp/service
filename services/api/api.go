@@ -3,29 +3,30 @@ package main
 import (
 	"github.com/penlook/gin"
 	"log"
+	"net/http"
+	"time"
 )
 
 func Api() {
 
 	log.Println("Register API")
 
-	router := gin.Default()
+	//gin.SetMode(gin.ReleaseMode)
+	gin.SetMode(gin.DebugMode)
 
-	router.GET("/", func(c *gin.Context) {
-		c.String(200, "hello world")
-	})
+	router := Router{
+		Handler: gin.Default(),
+	}
 
-	router.GET("/ping", func(c *gin.Context) {
-		c.String(200, "pong")
-	})
+	router.Register()
 
-	router.POST("/submit", func(c *gin.Context) {
-		c.String(401, "not authorized")
-	})
+	s := &http.Server{
+		Addr:           ":8080",
+		Handler:        router.GetHandler(),
+		ReadTimeout:    10 * time.Second,
+		WriteTimeout:   10 * time.Second,
+		MaxHeaderBytes: 1 << 20,
+	}
 
-	router.PUT("/error", func(c *gin.Context) {
-		c.String(500, "and error hapenned :(")
-	})
-
-	router.Run(":8080")
+	s.ListenAndServe()
 }

@@ -7,14 +7,10 @@ import (
 )
 
 // TCP Client
-func TestTcpClient(t *testing.T) {
+func TestService(t *testing.T) {
 	assert := assert.New(t)
-
-	conn, err := net.Dial("tcp", ":8080")
+	_, err := net.Dial("tcp", ":8080")
 	assert.Nil(err)
-
-	conn.Write([]byte("Hello Server"))
-	conn.Close()
-
-	//fmt.Println(status)
 }
+
+func TestStatus()
