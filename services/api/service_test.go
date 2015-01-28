@@ -3,7 +3,6 @@ package main
 import (
 	"github.com/stretchr/testify/assert"
 	"net"
-	"os/exec"
 	"testing"
 )
 
