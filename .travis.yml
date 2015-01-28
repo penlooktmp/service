@@ -19,7 +19,6 @@ install:
 
 before_script:
   - mysql -e 'create database test;'
-  - ./service.sh api stop build start test
 
 script:
-  - go test -v ./...
+  - ./service.sh api stop build start test
