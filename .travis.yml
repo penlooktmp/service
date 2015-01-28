@@ -19,6 +19,7 @@ install:
 
 before_script:
   - mysql -e 'create database test;'
+  - sudo chmod +x ./service.sh
 
 script:
   - ./service.sh api stop build start test
