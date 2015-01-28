@@ -1,3 +1,6 @@
 [submodule "modules/daemon"]
 	path = modules/daemon
 	url = https://github.com/penlook/daemon.git
+[submodule "aws"]
+	path = aws
+	url = git@github.com:penlook/aws.git
