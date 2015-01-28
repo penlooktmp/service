@@ -2,14 +2,11 @@ package main
 
 import (
 	"github.com/penlook/gin"
-	"log"
 	"net/http"
 	"time"
 )
 
 func Api() {
-
-	log.Println("Register API")
 
 	//gin.SetMode(gin.ReleaseMode)
 	gin.SetMode(gin.DebugMode)
