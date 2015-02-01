@@ -57,12 +57,11 @@ func acceptConnection(listener net.Listener, listen chan<- net.Conn) {
 
 func handleClient(client net.Conn) {
 	for {
-		fmt.Println("log")
-		// buf := make([]byte, 4096)
-		// numbytes, err := client.Read(buf)
-		// if numbytes == 0 || err != nil {
-		// 	return
-		// }
-		// client.Write(buf)
+		buf := make([]byte, 4096)
+		numbytes, err := client.Read(buf)
+		if numbytes == 0 || err != nil {
+			return
+		}
+		client.Write(buf)
 	}
 }
