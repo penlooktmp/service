@@ -1,6 +1,3 @@
 [submodule "modules/daemon"]
 	path = modules/daemon
 	url = https://github.com/penlook/daemon.git
-[submodule "aws"]
-	path = aws
-	url = https://github.com/penlook/aws.git
