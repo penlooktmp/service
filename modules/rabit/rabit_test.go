@@ -6,10 +6,21 @@
 package rabit
 
 import (
+	"github.com/streadway/amqp"
 	"github.com/stretchr/testify/assert"
+	"log"
 	"testing"
 )
 
 func TestRabit(t *testing.T) {
+
 	assert.New(t)
+
+	rabit := Rabit{
+		Name:   "Penlook",
+		Server: "amqp://guest:guest@localhost:5672/",
+	}
+
+	rabit.Connect()
+
 }
