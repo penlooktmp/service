@@ -26,8 +26,8 @@ func main() {
 	s3.ListObject(bucket)
 }
 
-func S3Create() *sdkS3.S3 {
-	creds := aws.Creds("AKIAJTPBBS46Y7SJETQQ", "Zc/5Ii8qnb19xKiBxgLnRG2DlrRNpdMyWN10WSlr", "")
+func S3Create(key_id string, key_secret string) *sdkS3.S3 {
+	creds := aws.Creds(key_id, key_secret, "")
 	cli := sdkS3.New(creds, "ap-northeast-1", nil)
 	return cli
 }
