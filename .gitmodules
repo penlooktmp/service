@@ -1,3 +1,6 @@
 [submodule "modules/daemon"]
 	path = modules/daemon
 	url = https://github.com/penlook/daemon.git
+[submodule "modules/socket"]
+	path = modules/socket
+	url = git@github.com:penlook/socket.git
