@@ -1,4 +1,4 @@
-package main
+package s3
 
 import (
 	"fmt"
@@ -10,23 +10,6 @@ import (
 
 type S3 struct {
 	s3cli *sdkS3.S3
-}
-
-func main() {
-
-	var (
-		bucket      string = "penlook-abc" // change to your convenience
-		contenttype string = "binary/octet-stream"
-	)
-
-	s3 := S3{
-		s3cli: S3Create(),
-	}
-
-	s3.PutObject(bucket, "abc1.txt", contenttype)
-	s3.ListObject(bucket)
-	s3.GetObject(bucket, "sample.txt")
-	s3.DeleteObject(bucket, "sample1.txt")
 }
 
 func S3Create(key_id string, key_secret string) *sdkS3.S3 {

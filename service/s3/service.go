@@ -23,4 +23,17 @@ func main() {
 
 func S3() {
 	// S3 service in here
+	var (
+		bucket      string = "penlook-abc" // change to your convenience
+		contenttype string = "binary/octet-stream"
+	)
+
+	s3 := S3{
+		s3cli: S3Create(),
+	}
+
+	s3.PutObject(bucket, "abc1.txt", contenttype)
+	s3.ListObject(bucket)
+	s3.GetObject(bucket, "sample.txt")
+	s3.DeleteObject(bucket, "sample1.txt")
 }
