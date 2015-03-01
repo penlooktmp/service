@@ -21,7 +21,7 @@ before_script:
   - git submodule foreach git checkout master
   - mysql -e 'create database test;'
   - sudo chmod +x ./service.sh
-  - ls -la /home/travis/src/github.com/penlook/
+  - ls -la /home/travis/src/github.com/
 
 script:
   - ./service.sh api stop build start test
