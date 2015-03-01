@@ -5,9 +5,7 @@ go:
 
 services:
   - redis-server
-  - cassandra
   - mongodb
-  - rabbitmq
 
 env:
   - AMQP_URL=amqp://guest:guest@127.0.0.1:5672/ GOMAXPROCS=2
@@ -23,6 +21,7 @@ before_script:
   - git submodule foreach git checkout master
   - mysql -e 'create database test;'
   - sudo chmod +x ./service.sh
+  - ls -la /home/travis/src/github.com/penlook/service/
 
 script:
   - ./service.sh api stop build start test
