@@ -6,16 +6,14 @@
 package main
 
 import (
-	"github.com/penlook/daemon"
+	"github.com/penlook/service/component/daemon"
 )
 
 func main() {
 
 	service := daemon.Service{
-		Name:        "storage",
-		Description: "Penlook Storage Service",
-		Process:     Storage,
+		Process: Storage,
 	}
-
+	service.GetInfo("storage")
 	service.Initialize()
 }

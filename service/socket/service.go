@@ -7,7 +7,8 @@ package main
 
 import (
 	// "github.com/penlook/socket"
-	"github.com/penlook/daemon"
+	"fmt"
+	"github.com/penlook/service/component/daemon"
 )
 
 func main() {
