@@ -1,7 +1,8 @@
 package main
 
 import (
-	"github.com/penlook/gin"
+	// "github.com/penlook/gin"
+	"github.com/gin-gonic/gin"
 )
 
 func postStatus(c *gin.Context) {
