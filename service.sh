@@ -6,7 +6,7 @@
 
 # Build daemon
 function daemon {
-	cd modules/daemon
+	cd component/daemon
 	chmod +x ./build.sh && ./build.sh
 	cd ../../
 }
@@ -123,7 +123,7 @@ function client {
 function main {
 
 	daemon
-	cd services
+	cd service
 
 	if [ -z "$1" ]
 	then
