@@ -6,7 +6,7 @@
 package main
 
 import (
-	"github.com/penlook/socket"
+	// "github.com/penlook/socket"
 	"github.com/penlook/daemon"
 )
 
