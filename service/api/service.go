@@ -17,3 +17,7 @@ func main() {
 	service.GetInfo("api")
 	service.Initialize()
 }
+
+func Api() {
+
+}
