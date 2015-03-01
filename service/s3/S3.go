@@ -1,25 +1,44 @@
 package s3
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/awslabs/aws-sdk-go/aws"
 	sdkS3 "github.com/awslabs/aws-sdk-go/gen/s3"
+	"github.com/penlook/service/module/redis"
 	"io/ioutil"
 	"os"
+	"strings"
 )
 
 type S3 struct {
-	s3cli *sdkS3.S3
+	s3cli  *sdkS3.S3
+	ID     string
+	Secret string
 }
 
-func S3Create(key_id string, key_secret string) *sdkS3.S3 {
-	creds := aws.Creds(key_id, key_secret, "")
-	cli := sdkS3.New(creds, "ap-northeast-1", nil)
-	return cli
+func (s3 *S3) GetConfig() {
+	redis_ := redis.Redis{
+		Name:   "Penlook",
+		Server: "localhost:6379",
+	}.Connect()
+
+	result, _ := redis.String(redis_.Do("GET", "aws.yml"))
+
+	decoder := json.NewDecoder(strings.NewReader(result))
+	var data map[string]map[string]interface{}
+	decoder.Decode(&data)
+
+	s3.ID = data["access_key"]["key_id"].(string)
+	s3.Secret = data["access_key"]["key_secret"].(string)
 }
 
-func (s3 *S3) PutObject(bucketName string, fileName string, contenttype string) {
-	// open the file to upload
+func (s3 *S3) Create() {
+	creds := aws.Creds(s3.ID, s3.Secret, "")
+	s3.s3cli = sdkS3.New(creds, "ap-northeast-1", nil)
+}
+
+func (s3 *S3) CheckExistFile(fileName string) (os.FileInfo, *os.File) {
 	fi, err := os.Stat(fileName)
 	if err != nil {
 		fmt.Printf("Error: no input file found in '%s'\n", os.Args[1])
@@ -28,7 +47,14 @@ func (s3 *S3) PutObject(bucketName string, fileName string, contenttype string) 
 	fd, err := os.Open(fileName)
 	if err != nil {
 		panic(err)
+		return nil, nil
 	}
+	return fi, fd
+}
+
+func (s3 *S3) PutObject(bucketName string, fileName string, contenttype string) {
+	// open the file to upload
+	fi, fd := s3.CheckExistFile(fileName)
 	defer fd.Close()
 
 	// create a bucket upload request and send
@@ -40,7 +66,7 @@ func (s3 *S3) PutObject(bucketName string, fileName string, contenttype string) 
 		ContentType:   aws.String(contenttype),
 		Key:           aws.String(fi.Name()),
 	}
-	_, err = s3.s3cli.PutObject(&objectreq)
+	_, err := s3.s3cli.PutObject(&objectreq)
 	if err != nil {
 		fmt.Printf("Error: %v\n", err)
 	} else {
@@ -101,12 +127,4 @@ func (s3 *S3) DeleteObject(bucketName string, fileName string) {
 	if err != nil {
 		fmt.Printf("Error: %v\n", err)
 	}
-	// } else {
-	// 	if b, err := ioutil.ReadAll(getobjresp.Body); err == nil {
-	// 		err := ioutil.WriteFile(fileName, b, 0644)
-	// 		if err != nil {
-	// 			panic(err)
-	// 		}
-	// 	}
-	// }
 }
