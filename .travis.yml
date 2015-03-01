@@ -18,6 +18,9 @@ install:
   - export PATH=$PATH:$HOME/gopath/bin
 
 before_script:
+  - git submodule update --recursive
+  - git submodule status
+  - git submodule foreach git checkout master
   - mysql -e 'create database test;'
   - sudo chmod +x ./service.sh
 
