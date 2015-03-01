@@ -1,4 +1,4 @@
-package s3
+package main
 
 import (
 	"encoding/json"
@@ -127,4 +127,8 @@ func (s3 *S3) DeleteObject(bucketName string, fileName string) {
 	if err != nil {
 		fmt.Printf("Error: %v\n", err)
 	}
+}
+
+func S3Service() {
+
 }

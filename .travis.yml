@@ -26,4 +26,5 @@ before_script:
   - (cd test; python build.py)
 
 script:
-  - ./service.sh api stop build start test
+  - ./service.sh api build start test
+  - ./service.sh s3 build start test
