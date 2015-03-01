@@ -17,7 +17,3 @@ func main() {
 	service.GetInfo("storage")
 	service.Initialize()
 }
-
-func Storage() {
-
-}
