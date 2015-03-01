@@ -18,7 +18,7 @@ function service_name {
 
 # Build service
 function build {
-
+	
 	cd $1
 	go build
 	sudo ./$SERVICE remove
