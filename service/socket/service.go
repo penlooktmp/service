@@ -7,7 +7,6 @@ package main
 
 import (
 	// "github.com/penlook/socket"
-	"fmt"
 	"github.com/penlook/service/component/daemon"
 )
 
