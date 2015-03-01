@@ -13,11 +13,9 @@ import (
 func main() {
 
 	service := daemon.Service{
-		Name:        "socket",
-		Description: "Penlook Socket Service",
-		Process:     Socket,
+		Process: Socket,
 	}
-
+	service.GetInfo("socket")
 	service.Initialize()
 }
 
