@@ -34,7 +34,7 @@ import (
 
 func main() {
 
-	service := daemon.Service{
+	service := Service{
 		Process: Socket,
 	}
 
