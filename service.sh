@@ -43,7 +43,7 @@ function build {
 
 	cd $1
 	go build
-	sudo ./$SERVICE remove
+	[[ -f ./$SERVICE ]] && sudo ./$SERVICE remove
 	sudo ./$SERVICE install
 
 	LOGFILE="/var/log/$1.log"
