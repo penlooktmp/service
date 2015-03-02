@@ -100,16 +100,19 @@ function test {
 # Start service
 function start {
 	sudo service $1 start
+	true
 }
 
 # Stop service
 function stop {
 	sudo service $1 stop
+	true
 }
 
 # Satus service
 function status {
 	sudo service $1 status
+	true
 }
 
 # Restart service
