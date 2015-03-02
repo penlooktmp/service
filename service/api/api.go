@@ -10,7 +10,7 @@ import (
 func Api() {
 
 	//gin.SetMode(gin.ReleaseMode)
-	gin.SetMode(gin.DebugMode)
+	gin.SetMode(gin.ReleaseMode)
 
 	router := Router{
 		Handler: gin.Default(),

@@ -14,6 +14,7 @@ func main() {
 	service := daemon.Service{
 		Process: Api,
 	}
+
 	service.GetInfo("api")
 	service.Initialize()
 }

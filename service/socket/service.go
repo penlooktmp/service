@@ -15,6 +15,7 @@ func main() {
 	service := daemon.Service{
 		Process: Socket,
 	}
+
 	service.GetInfo("socket")
 	service.Initialize()
 }
