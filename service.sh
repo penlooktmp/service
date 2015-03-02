@@ -42,8 +42,12 @@ function service_name {
 function build {
 
 	cd $1
-	go build
+
+	# if executable file is exist, service maybe installed
+	# we need to remove it before installing a new one
 	[[ -f ./$SERVICE ]] && sudo ./$SERVICE remove
+
+	go build
 	sudo ./$SERVICE install
 
 	LOGFILE="/var/log/$1.log"
