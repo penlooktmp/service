@@ -16,6 +16,6 @@ func main() {
 		Process: S3Service,
 	}
 
-	service.GetInfo("s3")
+	service.GetInfo("storage")
 	service.Initialize()
 }
