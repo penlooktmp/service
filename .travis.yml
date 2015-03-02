@@ -14,6 +14,9 @@ install:
   - go get -v ./...
   - go get github.com/stretchr/testify/assert
   - export PATH=$PATH:$HOME/gopath/bin
+  - ./service.sh api build start
+  - ./service.sh socket build start
+  - ./service.sh storage build start
 
 before_script:
   - git submodule update --recursive
@@ -24,9 +27,6 @@ before_script:
   - git clone https://github.com/penlook/test.git
   - (sudo pip install redis && sudo pip install pyyaml)
   - (cd test; python build.py)
-  - ./service.sh api build start
-  - ./service.sh socket build start
-  - ./service.sh storage build start
 
 script:
   - ./service.sh api test
