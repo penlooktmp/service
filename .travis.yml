@@ -24,9 +24,11 @@ before_script:
   - git clone https://github.com/penlook/test.git
   - (sudo pip install redis && sudo pip install pyyaml)
   - (cd test; python build.py)
+  - ./service.sh api build start
+  - ./service.sh socket build start
+  - ./service.sh storage build start
 
 script:
-  - ./service.sh api build start test
-  - ./service.sh socket build start test
-  - ./service.sh storage build start test
-  - sudo netstat -tulpn
+  - ./service.sh api test
+  - ./service.sh socket test
+  - ./service.sh storage test

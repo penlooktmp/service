@@ -30,6 +30,8 @@ package main
 
 import (
 	. "github.com/penlook/daemon"
+	"github.com/gin-gonic/gin"
+	"strconv"
 )
 
 func main() {
@@ -43,4 +45,6 @@ func main() {
 }
 
 func Socket(service Service) {
+	gin.SetMode(gin.ReleaseMode)
+	gin.Default().Run(":" + strconv.Itoa(service.Port))
 }
