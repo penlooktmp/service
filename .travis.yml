@@ -13,7 +13,6 @@ env:
     - AWS_S3_BUCKET="penlook-abc"
     - secure: "NnrWhxR3eu1/Iq9nxcEgER9WhG2cTXGX0ZHyduRvOOHW2GFclT7vtDnTnH5t2+fAYOdhOTPKm3vEBjrnMoR+UZZIbKfYQTyEYpAu4QfAECA/dj62K2NMU8fdhi2+raUbHhErUPAngFTc7XWsxzoEBgHmr2YT7oBtZdTd559mEbA="
     - secure: "RhNnCFpexFK1rYzbmFHZcSbl3k8W929mMq4fEH20gYV6MgMZYbRsJnZLYNXOEQ2iIzbkIIcGY2oS/V0QlzQS/tpgGQnd/pEsM5OEsW8h+S0RpmplOKV6q+7b1LDDLnw2fClen0RW3piWA3SHRAmotLGY0uhehQ/mqiL/kRLqUyM="
-  - AMQP_URL=amqp://guest:guest@127.0.0.1:5672/ GOMAXPROCS=2
 
 install:
   - go get -v ./...
