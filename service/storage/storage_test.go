@@ -43,8 +43,8 @@ func TestS3Config(t *testing.T) {
 	assert.NotNil(os.Getenv("AWS_S3_KEY"))
 	assert.NotNil(os.Getenv("AWS_S3_SECRET"))
 
-	assert.Equal(20, len(s3.ID))
-	assert.Equal(40, len(s3.Secret))
+	assert.Equal(20, len(os.Getenv("AWS_S3_KEY")))
+	assert.Equal(40, len(os.Getenv("AWS_S3_SECRET")))
 	fmt.Println()
 }
 
