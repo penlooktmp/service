@@ -8,6 +8,7 @@ import (
 	"github.com/penlook/service/module/redis"
 	"io/ioutil"
 	"log"
+	"net"
 	"os"
 	"strings"
 )
@@ -129,5 +130,46 @@ func (s3 *S3) DeleteObject(bucketName string, fileName string) {
 	}
 	if err != nil {
 		fmt.Printf("Error: %v\n", err)
+	}
+}
+
+func CToGoString(c []byte) string {
+	n := -1
+	for i, b := range c {
+		if b == 0 {
+			break
+		}
+		n = i
+	}
+	return string(c[:n+1])
+}
+
+func acceptConnection(listener net.Listener, listen chan<- net.Conn) {
+	for {
+		conn, err := listener.Accept()
+		if err != nil {
+			continue
+		}
+		listen <- conn
+	}
+}
+
+func handleClient(client net.Conn, s3 S3) {
+	for {
+		buf := make([]byte, 4096)
+		numbytes, err := client.Read(buf)
+		if numbytes == 0 || err != nil {
+			return
+		}
+		f, err := os.Create("/home/log")
+
+		s := CToGoString(buf)
+
+		_, err = f.WriteString(s)
+		f.Sync()
+		if s == "test" {
+			s3.PutObject("penlook-abc", "/home/tinntt/src/github.com/penlook/service/README.md", "text/plain")
+		}
+		client.Write(buf)
 	}
 }

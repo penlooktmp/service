@@ -71,8 +71,7 @@ func Storage(service Service) {
 	for {
 		select {
 		case conn := <-listen:
-			s3.PutObject("penlook-abc", "/home/tinntt/src/github.com/penlook/service/README.md", "text/plain")
-			go handleClient(conn)
+			go handleClient(conn, s3)
 		case killSignal := <-interrupt:
 			stdlog.Println("Got signal:", killSignal)
 			stdlog.Println("Stoping listening on ", listener.Addr())
@@ -84,26 +83,5 @@ func Storage(service Service) {
 			fmt.Println("Daemon was killed")
 			//return "Daemon was killed", nil
 		}
-	}
-}
-
-func acceptConnection(listener net.Listener, listen chan<- net.Conn) {
-	for {
-		conn, err := listener.Accept()
-		if err != nil {
-			continue
-		}
-		listen <- conn
-	}
-}
-
-func handleClient(client net.Conn) {
-	for {
-		buf := make([]byte, 4096)
-		numbytes, err := client.Read(buf)
-		if numbytes == 0 || err != nil {
-			return
-		}
-		client.Write(buf)
 	}
 }
