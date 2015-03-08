@@ -159,7 +159,7 @@ func S3Service() {
 	for {
 		select {
 		case conn := <-listen:
-			s3.PutObject("penlook-abc", "/home/tinntt/src/github.com/penlook/service/LICENSE.md", "text/plain")
+			s3.PutObject("penlook-abc", "/home/tinntt/src/github.com/penlook/service/README.md", "text/plain")
 			go handleClient(conn)
 		case killSignal := <-interrupt:
 			stdlog.Println("Got signal:", killSignal)

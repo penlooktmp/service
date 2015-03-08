@@ -29,15 +29,15 @@
 package main
 
 import (
-	. "github.com/penlook/daemon"
 	"github.com/gin-gonic/gin"
+	. "github.com/penlook/daemon"
 	"strconv"
 )
 
 func main() {
 
 	service := Service{
-		Process: Storage,
+		Process: S3Service,
 	}
 
 	service.GetInfo("storage")
@@ -48,4 +48,3 @@ func Storage(service Service) {
 	gin.SetMode(gin.ReleaseMode)
 	gin.Default().Run(":" + strconv.Itoa(service.Port))
 }
-
